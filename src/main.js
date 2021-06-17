@@ -4,5 +4,11 @@ import App from './App.vue'
 import liff from '@line/liff';
 
 liff.init({liffId: import.meta.env.VITE_LIFF_ID}).then(() => {
-  createApp(App).mount('#app')
+  if (!liff.isLoggedIn()) {
+    liff.login();
+  } else {
+    createApp(App).mount('#app')
+  }
+}).catch((err) => {
+  console.error(err)
 })
